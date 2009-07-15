@@ -6,6 +6,10 @@
 export DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 export DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
+ifneq (,$(findstring target,$(DEB_BUILD_OPTIONS)))
+	AO_OPTS = --with-ao=/usr/$(DEB_HOST_GNU_TYPE)
+endif
+
 CFLAGS = -O2 -Wall -Wunused
 INSTALL_PROGRAM = /usr/bin/install -c
 
@@ -23,7 +27,7 @@ configure-stamp:
 	# Add here commands to configure the package.
 	
 	CFLAGS="$(CFLAGS)" ./configure  --host=$(DEB_HOST_GNU_TYPE) --build='$(DEB_BUILD_GNU_TYPE)' \
-					--prefix=/usr --mandir=/usr/share/man --disable-mpg123-symlink --disable-aotest
+					--prefix=/usr --mandir=/usr/share/man --disable-mpg123-symlink --disable-aotest $(AO_OPTS)
 	touch configure-stamp
 
 build: configure-stamp build-stamp
