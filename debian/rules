@@ -3,6 +3,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+export DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+export DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
 CFLAGS = -O2 -Wall -Wunused
 INSTALL_PROGRAM = /usr/bin/install -c
 
@@ -19,7 +22,8 @@ configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
 	
-	CFLAGS="$(CFLAGS)" ./configure --prefix=/usr --mandir=/usr/share/man --disable-mpg123-symlink
+	CFLAGS="$(CFLAGS)" ./configure  --host=$(DEB_HOST_GNU_TYPE) --build='$(DEB_BUILD_GNU_TYPE)' \
+					--prefix=/usr --mandir=/usr/share/man --disable-mpg123-symlink
 	touch configure-stamp
 
 build: configure-stamp build-stamp
@@ -48,6 +52,7 @@ install: build
 
 	# mandir here has DESTDIR prepended to it
 	\$(MAKE) install DESTDIR=$(CURDIR)/debian/mpg321 mandir=/usr/share/man INSTALL_PROGRAM="$(INSTALL_PROGRAM)"
+	rm -rf $(CURDIR)/debian/mpg321/usr/share
 
 
 # Build architecture-independent files here.
@@ -58,9 +63,9 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdocs
-	dh_installmanpages
-	dh_installchangelogs 
+#	dh_installdocs
+#	dh_installmanpages
+#	dh_installchangelogs 
 	dh_link
 	dh_strip
 	dh_compress

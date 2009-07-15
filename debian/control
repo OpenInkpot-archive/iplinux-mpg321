@@ -1,8 +1,10 @@
 Source: mpg321
-Section: sound
+Section: core
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
+Maintainer: Yauhen Kharuzhy <jekhor@gmail.com>
 Build-Depends: debhelper (>> 5.0.0), libmad0-dev, libao-dev (>= 0.8.0), libid3tag0-dev, zlib1g-dev
+XCS-Cross-Build-Depends: libmad0-dev, libao-dev (>= 0.8.0), libid3tag0-dev, libz1-dev
+XCS-Cross-Host-Build-Depends: debhelper (>> 5.0.0)
 Standards-Version: 3.8.0
 
 Package: mpg321
