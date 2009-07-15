@@ -1,3 +1,9 @@
+mpg321 (0.2.10.6.1) asimov; urgency=low
+
+  * IPlinux port
+
+ -- Yauhen Kharuzhy <jekhor@gmail.com>  Wed, 15 Jul 2009 17:25:20 +0300
+
 mpg321 (0.2.10.6) unstable; urgency=low
 
   * QA upload.
