@@ -68,7 +68,7 @@ AC_TYPE_SIGNAL
 # AC_CHECK_TYPE doesn't work, probably because the type in
 # question is not defined in sys/types.h.
 
-AC_TYPE_SOCKLEN_T
+#AC_TYPE_SOCKLEN_T
 
 AC_CHECK_FUNCS([gethostbyname memset munmap socket strchr strdup strerror strrchr strstr gettimeofday select getenv putenv setenv unsetenv strcasecmp])
 
